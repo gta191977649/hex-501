@@ -1,0 +1,14 @@
+body {
+  background: rgb(152,159,128);
+  background: linear-gradient(180deg, rgba(152,159,128,1) 0%, rgba(103,108,85,1) 100%); 
+  height: 100vh;
+  color:#414433;
+  padding: 0px;
+  margin: 0px;
+  font-family: 'pixel';
+}
+
+@font-face {
+  font-family: pixel;
+  src: url("../public/res/font/pixel.ttf");
+}
