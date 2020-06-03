@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Window from './compoment/window'
 import Tilt from 'react-tilt'
+import AudioSpectrum from 'react-audio-spectrum'
 
 class App extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class App extends Component {
     c.width = window.innerWidth;
 
     //chinese characters - taken from the unicode charset
-    var chinese = "HANAを愛していた";
+    var chinese = "0x348D";
     //converting the string into an array of single characters
     chinese = chinese.split("");
 
@@ -83,7 +84,7 @@ class App extends Component {
       <form style={{ width: "60%" }}>
         <div className="form-group">
           <label>ユーザー名:</label>
-          <input className="hex-input" value="hana" onMouseOver={this.playSFX}/>
+          <input className="hex-input" value="NullPtr" onMouseOver={this.playSFX}/>
         </div>
         <div className="form-group">
           <label>パスワード:</label>
@@ -98,8 +99,9 @@ class App extends Component {
     </React.Fragment>
     return (
       <div className="App">
-        <audio
-          src="../res/audio/Re-awake.mp3"
+        <audio 
+          id="audio-element"
+          src="../res/audio/title.mp3"
           autoPlay={true}          
          />
          <audio ref="SFX" src='../res/audio/mouse_hover.ogg' autoplay/>
@@ -109,11 +111,32 @@ class App extends Component {
         <br />
         <br />
       
-        <div className="container">
-          <Tilt className="Tilt" options={{ max : 10,scale:1 }}>
-            <Window width="600px" content={content}/>
+        <div className="container" style={{
+          display:"flex", width:"100%", flexDirection: "column"
+        }}>
+          <Tilt className="Tilt" options={{ max : 10,scale:1 }} style={{marginTop:"0", marginBottom:"10%"}}>
+            <Window width="600px" title="SPARROW SHELL" content={content}/>
           </Tilt>
-          
+          <Tilt className="Tilt" options={{ max : 10,scale:1 }}>
+            <Window width="500px" title="SPECTURM" content={
+              <AudioSpectrum
+              id="audio-canvas"
+              height={100}
+              width={495}
+              audioId={'audio-element'}
+              capColor={'#414433'}
+              capHeight={5}
+              meterWidth={5}
+              meterCount={512}
+              meterColor={[
+                {stop: 0, color: '#414433'},
+                {stop: 0.5, color: '#848b6e'},
+                {stop: 1, color: '#848b6e'}
+              ]}
+              gap={5}
+            />
+            }/>
+          </Tilt>
         </div>
        
       </div>
