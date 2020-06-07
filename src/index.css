@@ -5,10 +5,14 @@ body {
   color:#414433;
   padding: 0px;
   margin: 0px;
-  font-family: 'pixel';
+  font-family: 'pixel-kr','pixel';
 }
 
 @font-face {
   font-family: pixel;
   src: url("../public/res/font/pixel.ttf");
+}
+@font-face {
+  font-family: "pixel-kr";
+  src: url("../public/res/font/unicode-bitmap.ttf");
 }

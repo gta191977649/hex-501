@@ -9,6 +9,15 @@ class App extends Component {
     super(props)
     this.hexBGEffect = this.hexBGEffect.bind(this)
     this.playSFX = this.playSFX.bind(this)
+    this.nextBGM = this.nextBGM.bind(this)
+    this.state = {
+      current: 0,
+    }
+    this.playlist = [
+      {"title":"그때처럼 우리가 살고있는가","src":"../res/audio/title.mp3"},
+      {"title":"단숨에","src":"../res/audio/tansume.mp3"},
+      {"title":"Re-awake","src":"../res/audio/Re-awake.mp3"},
+    ]
   }
   componentDidMount() {
     this.hexBGEffect()
@@ -23,7 +32,7 @@ class App extends Component {
     c.width = window.innerWidth;
 
     //chinese characters - taken from the unicode charset
-    var chinese = "0x348D";
+    var chinese = "SPARROW OS";
     //converting the string into an array of single characters
     chinese = chinese.split("");
 
@@ -44,12 +53,14 @@ class App extends Component {
         ctx.fillRect(0, 0, c.width, c.height);
 
         ctx.fillStyle = "#414433";
-        ctx.font = font_size + "px pixel";
+        ctx.font = font_size + "px pixel-kr";
         //looping over drops
         for (var i = 0; i < drops.length; i++) {
           //a random chinese character to print
           var text = chinese[Math.floor(Math.random() * chinese.length)];
+          //var text = chinese[Math.floor((i+1)%chinese.length)];
           //x = i*font_size, y = value of drops[i]*font_size
+
           ctx.fillText(text, i * font_size, drops[i] * font_size);
 
           //sending the drop back to the top randomly after it has crossed the screen
@@ -73,26 +84,34 @@ class App extends Component {
     event.stopPropagation();
     event.preventDefault();
   }
-
+  nextBGM() {
+    
+    let newIndex = this.state.current+1 < this.playlist.length ? this.state.current+1 : 0
+    this.setState({
+      current:newIndex
+    })
+    console.log(`SET BGM ${newIndex}`)
+  }
   render() {
     const content = <React.Fragment>
       <div className="logo-area" style={{ width: "200px" }}>
-      <div className="window-logo"  onMouseOver={this.playSFX}>HEX-501</div>
+      <div className="window-logo"  onMouseOver={this.playSFX}>HEX-501
+</div>
         <p className="window-text">Build:0x20DFE<br />Powered By Project-Sparrow</p>
       </div>
       <br />
       <form style={{ width: "60%" }}>
         <div className="form-group">
-          <label>ユーザー名:</label>
+          <label>사용자 이름:</label>
           <input className="hex-input" value="NullPtr" onMouseOver={this.playSFX}/>
         </div>
         <div className="form-group">
-          <label>パスワード:</label>
+          <label>암호:</label>
           <input className="hex-input" onMouseOver={this.playSFX}/>
         </div>
         <div className="form-group" style={{ textAlign: "right" }}>
-          <a className="hex-primary"  onMouseOver={this.playSFX}>Close</a>
-          <a className="hex-primary" onMouseOver={this.playSFX}>Login</a>
+          <a className="hex-primary"  onMouseOver={this.playSFX}>닫기</a>
+          <a className="hex-primary" onMouseOver={this.playSFX}>로그인</a>
         </div>
       </form>
       <br />
@@ -101,10 +120,11 @@ class App extends Component {
       <div className="App">
         <audio 
           id="audio-element"
-          src="../res/audio/title.mp3"
+          src={this.playlist[this.state.current].src}
           autoPlay={true}          
+          loop={true}
          />
-         <audio ref="SFX" src='../res/audio/mouse_hover.ogg' autoplay/>
+         <audio ref="SFX" src='../res/audio/mouse_hover.ogg' autoPlay/>
         <canvas ref="canvas" width="100" height="900" style={{ float: "left" }} />
         <br />
         <br />
@@ -115,17 +135,18 @@ class App extends Component {
           display:"flex", width:"100%", flexDirection: "column"
         }}>
           <Tilt className="Tilt" options={{ max : 10,scale:1 }} style={{marginTop:"0", marginBottom:"10%"}}>
-            <Window width="600px" title="SPARROW SHELL" content={content}/>
+            <Window width="600px" title="참새껍질 - 로그인" content={content}/>
           </Tilt>
-          <Tilt className="Tilt" options={{ max : 10,scale:1 }}>
-            <Window width="500px" title="SPECTURM" content={
+          <Tilt className="Tilt" options={{ max : 10,scale:1 }} >
+            <Window width="500px"  title={`SPECTURM - ${this.playlist[this.state.current].title}`}content={
+              <React.Fragment>
               <AudioSpectrum
               id="audio-canvas"
-              height={100}
+              height={50}
               width={495}
               audioId={'audio-element'}
               capColor={'#414433'}
-              capHeight={5}
+              capHeight={2}
               meterWidth={5}
               meterCount={512}
               meterColor={[
@@ -133,9 +154,11 @@ class App extends Component {
                 {stop: 0.5, color: '#848b6e'},
                 {stop: 1, color: '#848b6e'}
               ]}
-              gap={5}
+              gap={2}
             />
-            }/>
+            </React.Fragment>
+            }  onClick={this.nextBGM}/>
+           
           </Tilt>
         </div>
        

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AudioSpectrum from 'react-audio-spectrum'
 
 class window extends Component {
     constructor(props) {
@@ -8,7 +7,7 @@ class window extends Component {
     }
     render() { 
         return(
-        <div className="window" style={{width:this.props.width}}>
+        <div className="window" style={{width:this.props.width}} onClick={this.props.onClick}>
             <div className="window-header">
                 {this.props.title}
             </div>

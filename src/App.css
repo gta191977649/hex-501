@@ -45,7 +45,7 @@
   padding:5px;
   width: 100%;
   transition: background 0.1s;
-  font-family: 'pixel';
+  font-family: 'pixel-kr','pixel';
   font-size:18px;
 }
 .hex-input:hover {
