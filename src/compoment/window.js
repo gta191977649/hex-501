@@ -7,7 +7,7 @@ class window extends Component {
     }
     render() { 
         return(
-        <div className="window" style={{width:this.props.width}} onClick={this.props.onClick}>
+        <div className="window" style={{width:this.props.width,height:this.props.height}} onClick={this.props.onClick}>
             <div className="window-header">
                 {this.props.title}
             </div>

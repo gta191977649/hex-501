@@ -57,7 +57,6 @@
 .window form {
   margin-left: auto;
   margin-right: auto;
-  
 }
 .window form label {
   margin-bottom: 5px;
@@ -84,4 +83,72 @@ input:focus, textarea:focus, select:focus{
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.app-lancher {
+  bottom: 0px;
+  position:fixed;
+  height: 30px;
+  background-color: #414433;
+  width: 100%;
+  color: #969c80;
+}
+.app-lancher a{
+  padding: 0;
+  margin: 0;
+  line-height: 30px;
+  font-size: 20px;
+  float: left;
+  margin-left: 5px;
+  margin-right: 5px;
+  color: inherit;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+.app-lancher a:hover{
+  background-color: #969c80;
+  color: #414433;
+  cursor: pointer;
+}
+.app {
+  height: 100hv;
+}
+.hex-list {
+  list-style: none;
+  display: flex; 
+  flex-direction: column ;
+  
+}
+.hex-list li{
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 18px;
+}
+.selected{
+  background-color: #414433;
+  color: #969c80;
+}
+.hex-list li:hover{
+  background-color: #414433;
+  color: #969c80;
+  cursor: pointer;
+  width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }

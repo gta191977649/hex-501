@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import Window from './compoment/window'
+import List from './compoment/list'
 import Tilt from 'react-tilt'
 import AudioSpectrum from 'react-audio-spectrum'
+//import Draggable from 'react-draggable'; // The default
 
 class App extends Component {
   constructor(props) {
@@ -10,12 +12,19 @@ class App extends Component {
     this.hexBGEffect = this.hexBGEffect.bind(this)
     this.playSFX = this.playSFX.bind(this)
     this.nextBGM = this.nextBGM.bind(this)
+    this.setActiveWin = this.setActiveWin.bind(this)
+    this.onPlayListSelect = this.onPlayListSelect.bind(this)
     this.state = {
       current: 0,
+      win: "WIN_LOGIN",
     }
     this.playlist = [
       {"title":"그때처럼 우리가 살고있는가","src":"../res/audio/title.mp3"},
       {"title":"단숨에","src":"../res/audio/tansume.mp3"},
+      {"title":"Ольга Зарубина - Земляника","src":"../res/audio/title3.mp3"},
+      {"title":"그때처럼 우리가 살고있는가 (KCTV버전)","src":"../res/audio/title4.mp3"},
+      {"title":"공격전이다","src":"../res/audio/title5.mp3"},
+      {"title":"경음악과 노래련곡무장으로 받들자 우리의 최고사령관","src":"../res/audio/title6.mp3"},
       {"title":"Re-awake","src":"../res/audio/Re-awake.mp3"},
     ]
   }
@@ -92,18 +101,18 @@ class App extends Component {
     })
     console.log(`SET BGM ${newIndex}`)
   }
-  render() {
+  loginWindow() {
     const content = <React.Fragment>
       <div className="logo-area" style={{ width: "200px" }}>
       <div className="window-logo"  onMouseOver={this.playSFX}>HEX-501
-</div>
+      </div>
         <p className="window-text">Build:0x20DFE<br />Powered By Project-Sparrow</p>
       </div>
       <br />
       <form style={{ width: "60%" }}>
         <div className="form-group">
           <label>사용자 이름:</label>
-          <input className="hex-input" value="NullPtr" onMouseOver={this.playSFX}/>
+          <input className="hex-input" defaultValue="NullPtr" onMouseOver={this.playSFX}/>
         </div>
         <div className="form-group">
           <label>암호:</label>
@@ -116,13 +125,56 @@ class App extends Component {
       </form>
       <br />
     </React.Fragment>
+    return (        
+    <Tilt className="Tilt" options={{ max : 10,scale:1 }} style={{marginTop:"0", marginBottom:"10%"}}>
+      <Window width="600px" title="참새껍질 - 로그인" content={content}/>
+    </Tilt>)
+  }
+  playlistWindow() {
+    let content = <React.Fragment>
+        <List data={this.playlist} hover={this.playSFX} onSelect={this.onPlayListSelect} selected={this.state.current}/>
+    </React.Fragment>
+    let list = 
+    <Tilt className="Tilt" options={{ max : 10,scale:1 }} style={{marginTop:"0", marginBottom:"3%"}}>
+      <Window width="550px" title="재생목록" content={content}/>
+    </Tilt>
+  
+    return(list)
+  }
+  onPlayListSelect(idx) {
+    //console.log(idx)
+    this.setState({
+      current:idx
+    })
+  }
+  showWindow(window) {
+    switch (window) {
+      case "WIN_LOGIN":{
+        return this.loginWindow()
+      }
+      case "WIN_PLIST":{
+        return this.playlistWindow()
+      }
+      default: {
+        return (<p>NO WIN FOUND</p>)
+      }
+
+    }
+  }
+  setActiveWin(newWindow) {
+    this.setState({
+      win: newWindow
+    })
+  }
+  render() {
+    
     return (
       <div className="App">
         <audio 
           id="audio-element"
           src={this.playlist[this.state.current].src}
           autoPlay={true}          
-          loop={true}
+          onEnded={this.nextBGM}
          />
          <audio ref="SFX" src='../res/audio/mouse_hover.ogg' autoPlay/>
         <canvas ref="canvas" width="100" height="900" style={{ float: "left" }} />
@@ -131,14 +183,12 @@ class App extends Component {
         <br />
         <br />
       
-        <div className="container" style={{
-          display:"flex", width:"100%", flexDirection: "column"
-        }}>
-          <Tilt className="Tilt" options={{ max : 10,scale:1 }} style={{marginTop:"0", marginBottom:"10%"}}>
-            <Window width="600px" title="참새껍질 - 로그인" content={content}/>
-          </Tilt>
+        <div className="container" style={{display:"flex", width:"100%", flexDirection: "column"}}>
+
+          {this.showWindow(this.state.win)}
+          
           <Tilt className="Tilt" options={{ max : 10,scale:1 }} >
-            <Window width="500px"  title={`SPECTURM - ${this.playlist[this.state.current].title}`}content={
+            <Window width="500px"  title={`KCPLAYER - ${this.playlist[this.state.current].title}`}content={
               <React.Fragment>
               <AudioSpectrum
               id="audio-canvas"
@@ -160,6 +210,10 @@ class App extends Component {
             }  onClick={this.nextBGM}/>
            
           </Tilt>
+          <div className="app-lancher">
+            <a href="#" onClick={()=> {this.setActiveWin("WIN_LOGIN")}} onMouseOver={this.playSFX}>로그인</a>
+            <a href="#" onClick={()=> {this.setActiveWin("WIN_PLIST")}} onMouseOver={this.playSFX}>재생 목록</a>
+          </div>
         </div>
        
       </div>
