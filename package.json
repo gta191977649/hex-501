@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "javascript-terminal": "^1.0.3",
     "react": "^16.12.0",
     "react-audio-player": "^0.11.1",
     "react-audio-spectrum": "^0.1.0",
     "react-dom": "^16.12.0",
     "react-draggable": "^4.4.3",
     "react-scripts": "0.9.5",
-    "react-tilt": "^0.1.4"
+    "react-terminal-component": "^1.4.1",
+    "react-tilt": "^0.1.4",
+    "terminal-in-react": "^4.3.1"
   },
   "devDependencies": {},
   "scripts": {

@@ -4,6 +4,8 @@ import Window from './compoment/window'
 import List from './compoment/list'
 import Tilt from 'react-tilt'
 import AudioSpectrum from 'react-audio-spectrum'
+import ReactTerminal from 'react-terminal-component';
+
 //import Draggable from 'react-draggable'; // The default
 
 class App extends Component {
@@ -139,7 +141,33 @@ class App extends Component {
       <Window width="550px" title="재생목록" content={content}/>
     </Tilt>
   
-    return(list)
+    return list
+  }
+  consoleWindow() {
+    
+    let content = <div className="termial">
+      
+      <ReactTerminal theme={{
+        background: '#848b6e',
+        promptSymbolColor: '#414433',
+        commandColor: '#414433',
+        outputColor: '#414433',
+        errorOutputColor: '#414433',
+        fontSize: '1.2rem',
+        spacing: '0%',
+        fontFamily: 'pixel-kr',
+        width: '100%',
+        height: '50vh'
+      }}
+      promptSymbol="$"
+      clickToFocus={true}
+      autoFocus={true}/>
+    </div>
+    let kon = 
+    <Tilt className="Tilt" options={{ max : 10,scale:1 }} style={{marginTop:"0", marginBottom:"3%"}}>
+      <Window width="800px" title="KC-CONSOLE" content={content}/>
+    </Tilt>
+    return kon
   }
   onPlayListSelect(idx) {
     //console.log(idx)
@@ -155,6 +183,11 @@ class App extends Component {
       case "WIN_PLIST":{
         return this.playlistWindow()
       }
+      
+      case "WIN_CONSOLE":{
+        return this.consoleWindow()
+      }
+
       default: {
         return (<p>NO WIN FOUND</p>)
       }
@@ -213,6 +246,7 @@ class App extends Component {
           <div className="app-lancher">
             <a href="#" onClick={()=> {this.setActiveWin("WIN_LOGIN")}} onMouseOver={this.playSFX}>로그인</a>
             <a href="#" onClick={()=> {this.setActiveWin("WIN_PLIST")}} onMouseOver={this.playSFX}>재생 목록</a>
+            <a href="#" onClick={()=> {this.setActiveWin("WIN_CONSOLE")}} onMouseOver={this.playSFX}>KONSOLE</a>
           </div>
         </div>
        

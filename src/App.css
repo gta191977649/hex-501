@@ -1,3 +1,11 @@
+@font-face {
+  font-family: pixel;
+  src: url("../public/res/font/pixel.ttf");
+}
+@font-face {
+  font-family: "pixel-kr";
+  src: url("../public/res/font/unicode-bitmap.ttf");
+}
 .window {
   background: #848b6e;
   border: #414433 solid 1px;
@@ -135,20 +143,21 @@ input:focus, textarea:focus, select:focus{
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #41443300; 
 }
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #414433; 
+  width: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #414433; 
 }
