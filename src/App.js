@@ -4,7 +4,7 @@ import Window from './compoment/window'
 import List from './compoment/list'
 import Tilt from 'react-tilt'
 import AudioSpectrum from 'react-audio-spectrum'
-import ReactTerminal from 'react-terminal-component';
+import Terminal from 'terminal-in-react';
 
 //import Draggable from 'react-draggable'; // The default
 
@@ -128,7 +128,7 @@ class App extends Component {
       <br />
     </React.Fragment>
     return (        
-    <Tilt className="Tilt" options={{ max : 10,scale:1 }} style={{marginTop:"0", marginBottom:"10%"}}>
+    <Tilt className="Tilt animate-in" options={{ max : 10,scale:1 }} style={{marginTop:"0", marginBottom:"10%"}}>
       <Window width="600px" title="참새껍질 - 로그인" content={content}/>
     </Tilt>)
   }
@@ -137,7 +137,7 @@ class App extends Component {
         <List data={this.playlist} hover={this.playSFX} onSelect={this.onPlayListSelect} selected={this.state.current}/>
     </React.Fragment>
     let list = 
-    <Tilt className="Tilt" options={{ max : 10,scale:1 }} style={{marginTop:"0", marginBottom:"3%"}}>
+    <Tilt className="Tilt animate-in" options={{ max : 10,scale:1 }} style={{marginTop:"0", marginBottom:"3%"}}>
       <Window width="550px" title="재생목록" content={content}/>
     </Tilt>
   
@@ -145,27 +145,45 @@ class App extends Component {
   }
   consoleWindow() {
     
-    let content = <div className="termial">
-      
-      <ReactTerminal theme={{
-        background: '#848b6e',
-        promptSymbolColor: '#414433',
-        commandColor: '#414433',
-        outputColor: '#414433',
-        errorOutputColor: '#414433',
-        fontSize: '1.2rem',
-        spacing: '0%',
-        fontFamily: 'pixel-kr',
-        width: '100%',
-        height: '50vh'
-      }}
-      promptSymbol="$"
-      clickToFocus={true}
-      autoFocus={true}/>
-    </div>
+    let content =
+        <Terminal
+          color='#414433'
+          prompt='#414433'
+          backgroundColor='#848b6e'
+          
+          style={{ fontWeight: "bold", fontSize: "1.2em",height:"50vh"}}
+          commands={{
+            'sites': () => <p>List Of Sites:<br/><strong>My personal sites:</strong><br/>
+              <a href="//buncho.moe">Sparrow Blog (My blog)</a><br/>
+              <a href="//midi.sparrow.moe">Sparrow MIDI (My MIDI Collection)</a>
+            </p>,
+            'projects': () => <React.Fragment><h2>List Of Projects:</h2><h3>Github:</h3>
+              <a href="//github.com/gta191977649">ヌルポ(Nurupo)</a>
+              <p> link will take your to my github if you interested =w=</p>
+              <h3>My projects</h3>
+              <h3>Personal:</h3>
+              <a href="//archive.sparrow.moe/tools/utsgpacalc/">UTA GPA Calculator</a><br/>
+              <a href="//archive.sparrow.moe/mytimetable-w-/">MyTimetable -w- (Android,IOS) APP,i guess better than UTS Offcial =w=</a>
+              <h3>UTS Assignments (Archive):</h3>
+              <a href="//sep.project-sparrow.ml">SEP DEMO (Software Engineering Practice Spring 2017)</a><br/>
+              <a href="//sdp.project-sparrow.ml">SDP DEMO (Systems Development Project Spring 2017) </a><br/>
+              <a href="//wsd.sparrow.moe">WSD Group Assignment 2018 (Web Services Development Autumn 2018) </a>
+            </React.Fragment>
+          }}
+          descriptions={{
+            'sites': 'list all the sites avaiable in this server.',
+            'projects': 'list all the project that i done in the past.',
+          }}
+          msg="Sparrow OS v1.1.5 [Build 114514] (C) Project Java Sparrow 2019"
+          hideTopBar={true}
+          allowTabs={false}
+          showActions={true}
+          startState="maximised"
+        />
+   
     let kon = 
-    <Tilt className="Tilt" options={{ max : 10,scale:1 }} style={{marginTop:"0", marginBottom:"3%"}}>
-      <Window width="800px" title="KC-CONSOLE" content={content}/>
+    <Tilt className="Tilt animate-in" options={{ max : 10,scale:1 }} style={{marginTop:"0", marginBottom:"3%"}}>
+      <Window width="800px" height="53vh" title="KC-CONSOLE" content={content}/>
     </Tilt>
     return kon
   }

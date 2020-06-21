@@ -6,7 +6,25 @@
   font-family: "pixel-kr";
   src: url("../public/res/font/unicode-bitmap.ttf");
 }
+.animate-in {
+	animation-name: animate;
+	animation-timing-function: ease-in;
+	animation-duration: 0.2s;
+}
+
+@keyframes animate {
+	0% {
+    opacity: 0%;
+    margin-top: 20px;
+	}
+	100% {
+    opacity: 100%;
+    margin-top: 0px;
+	}
+}
+
 .window {
+  transition: all 0.2s;
   background: #848b6e;
   border: #414433 solid 1px;
   margin-left: auto;
@@ -35,6 +53,7 @@
 .window-body {
   padding: 2px;
 }
+
 .hex-primary {
   color:#414433;
   font-weight: bold;
@@ -160,4 +179,7 @@ input:focus, textarea:focus, select:focus{
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #414433; 
+}
+a {
+  color:#414433;
 }
