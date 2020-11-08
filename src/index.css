@@ -7,6 +7,7 @@ body {
   margin: 0px;
   font-family: 'pixel-kr','pixel';
 }
+html, body {margin: 0; height: 100%; overflow: hidden}
 
 @font-face {
   font-family: pixel;
@@ -16,3 +17,8 @@ body {
   font-family: "pixel-kr";
   src: url("../public/res/font/unicode-bitmap.ttf");
 }
+@font-face {
+  font-family: 'VCR';
+  src: url('../public/res/font/vcr.ttf');
+}
+

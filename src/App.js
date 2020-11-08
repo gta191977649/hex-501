@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Window from './compoment/window'
 import List from './compoment/list'
+import KCTV from './compoment/kctv'
+
 import Tilt from 'react-tilt'
 import AudioSpectrum from 'react-audio-spectrum'
 import Terminal from 'terminal-in-react';
@@ -18,16 +20,17 @@ class App extends Component {
     this.onPlayListSelect = this.onPlayListSelect.bind(this)
     this.state = {
       current: 0,
-      win: "WIN_LOGIN",
+      win: "KCTV",
     }
     this.playlist = [
+      {"title":"MAIN","src":"../res/audio/startup.mp3"},
       {"title":"그때처럼 우리가 살고있는가","src":"../res/audio/title.mp3"},
       {"title":"단숨에","src":"../res/audio/tansume.mp3"},
       {"title":"Ольга Зарубина - Земляника","src":"../res/audio/title3.mp3"},
       {"title":"그때처럼 우리가 살고있는가 (KCTV버전)","src":"../res/audio/title4.mp3"},
       {"title":"공격전이다","src":"../res/audio/title5.mp3"},
       {"title":"경음악과 노래련곡무장으로 받들자 우리의 최고사령관","src":"../res/audio/title6.mp3"},
-      {"title":"Re-awake","src":"../res/audio/Re-awake.mp3"},
+      {"title":"Title 7","src":"../res/audio/title7.mp3"},
     ]
   }
   componentDidMount() {
@@ -218,7 +221,11 @@ class App extends Component {
     })
   }
   render() {
-    
+    let OldInterface = <React.Fragment>
+      {this.showWindow(this.state.win)}
+          
+          
+    </React.Fragment>
     return (
       <div className="App">
         <audio 
@@ -229,15 +236,9 @@ class App extends Component {
          />
          <audio ref="SFX" src='../res/audio/mouse_hover.ogg' autoPlay/>
         <canvas ref="canvas" width="100" height="900" style={{ float: "left" }} />
-        <br />
-        <br />
-        <br />
-        <br />
-      
-        <div className="container" style={{display:"flex", width:"100%", flexDirection: "column"}}>
 
-          {this.showWindow(this.state.win)}
-          
+        <div className="container" style={{display:"flex", width:"100%", flexDirection: "column"}}>
+          {this.state.win === "KCTV" ?  <KCTV/> : OldInterface}
           <Tilt className="Tilt" options={{ max : 10,scale:1 }} >
             <Window width="500px"  title={`KCPLAYER - ${this.playlist[this.state.current].title}`}content={
               <React.Fragment>
@@ -261,13 +262,15 @@ class App extends Component {
             }  onClick={this.nextBGM}/>
            
           </Tilt>
-          <div className="app-lancher">
+          <div className={this.state.win === "KCTV" ?  "app-lancher kctv" :  "app-lancher"}>
+            <p className="float-right">ver 1.1</p>
+            <a href="#" onClick={()=> {this.setActiveWin("KCTV")}} onMouseOver={this.playSFX}>Test Card</a>
             <a href="#" onClick={()=> {this.setActiveWin("WIN_LOGIN")}} onMouseOver={this.playSFX}>로그인</a>
             <a href="#" onClick={()=> {this.setActiveWin("WIN_PLIST")}} onMouseOver={this.playSFX}>재생 목록</a>
-            <a href="#" onClick={()=> {this.setActiveWin("WIN_CONSOLE")}} onMouseOver={this.playSFX}>KONSOLE</a>
+            <a href="#" onClick={()=> {this.setActiveWin("WIN_CONSOLE")}} onMouseOver={this.playSFX}>콘솔</a>
           </div>
         </div>
-       
+        
       </div>
     );
   }

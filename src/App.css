@@ -119,7 +119,7 @@ input:focus, textarea:focus, select:focus{
   width: 100%;
   color: #969c80;
 }
-.app-lancher a{
+.app-lancher a,p{
   padding: 0;
   margin: 0;
   line-height: 30px;
@@ -135,6 +135,21 @@ input:focus, textarea:focus, select:focus{
   background-color: #969c80;
   color: #414433;
   cursor: pointer;
+}
+.kctv{
+  bottom: 0px;
+  position:fixed;
+  height: 30px;
+  background-color: black;
+  width: 100%;
+  color: white;
+}
+.kctv a:hover{
+  background-color: white;
+  color:black;
+}
+.float-right {
+  float: right;
 }
 .app {
   height: 100hv;
@@ -183,3 +198,5 @@ input:focus, textarea:focus, select:focus{
 a {
   color:#414433;
 }
+
+svg { position:fixed; top:0; bottom:0; left:0; right:0 }
